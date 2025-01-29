@@ -3,16 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MBIN.Entity.Common;
 
-namespace MBIN.Entity.User
+namespace MBIN.Entity.DTOs
 {
-    public class User : BaseEntity
+    public class UserDTO
     {
         public string UserName { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
-        public string JWTSecret { get; set; }
         public bool Gender { get; set; }
     }
 }

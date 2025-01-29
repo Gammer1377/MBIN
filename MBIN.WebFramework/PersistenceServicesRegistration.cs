@@ -28,8 +28,9 @@ namespace MBIN.WebFramework
 
             #region Dependency
 
-            service.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-  
+            service.AddScoped(typeof(IGenericRepository<,>), typeof(GenericRepository<,>));
+            service.AddScoped<IUserRepository, UserRepository>();
+
             #endregion
 
             return service;
