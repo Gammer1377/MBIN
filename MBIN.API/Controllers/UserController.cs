@@ -25,18 +25,18 @@ namespace MBIN.API.Controllers
 
         [HttpPost]
         [Route("AddUser")]
-        public IActionResult InsertUser([FromBody] UserDTO userDto)
+        public IActionResult InsertUser([FromBody] CreateUserDTO user)
         {
-            User user = new()
+            User User = new()
             {
-                UserName = userDto.UserName,
-                Email = userDto.Email,
-                Gender = userDto.Gender,
-                Password = userDto.Password,
+                UserName = user.UserName,
+                Email = user.Email,
+                Gender = user.Gender,
+                Password = user.Password,
                 CreateDate = DateTime.Now,
                 LastUpdateDate = DateTime.Now
             };
-            var Query = _repository.InsertAsync(user).Result;
+            var Query = _repository.InsertAsync(User).Result;
 
             if (Query)
             {
@@ -60,7 +60,7 @@ namespace MBIN.API.Controllers
 
         [HttpPatch(nameof(id))]
         [Route("UpdateUser/{id}")]
-        public IActionResult UpdateUser(UserDTO user, int id)
+        public IActionResult UpdateUser(EditUserDTO user, int id)
         {
             var Query = _repository.GetByIdAsync(id);
 
