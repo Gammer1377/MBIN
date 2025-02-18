@@ -20,26 +20,29 @@ namespace MBIN.Data.FluentConfigs.User
             builder.Property(b => b.Password).IsRequired().HasMaxLength(30);
             builder.Property(b => b.Gender).IsRequired();
             builder.Property(b => b.Email).IsRequired().HasMaxLength(30);
+            builder.Property(b => b.Mobile).HasMaxLength(11);
             builder.Ignore(b => b.JWTSecret);
             builder.HasData(new Entity.User.User
             {
                 Id = 1,
                 UserName = "MobinEfati",
                 Email = "MobinEffati@gmail.com",
-                Password = PasswordHelper.EncodeProSecurity("12481632"),
+                Password = "12481632",
                 CreateDate = new DateTime(2025, 1, 22),
                 LastUpdateDate = new DateTime(2025, 1, 22),
-                Gender = true
+                Gender = true,
+                Mobile = "09906888135"
             },
             new Entity.User.User
             {
                 Id = 2,
                 UserName = "ElhamAzizzade",
                 Email = "ElhamAzizzade@gmail.com",
-                Password = PasswordHelper.EncodeProSecurity("12481632"),
+                Password = "12481632",
                 CreateDate = new DateTime(2025, 1, 22),
                 LastUpdateDate = new DateTime(2025, 1, 22),
-                Gender = false
+                Gender = false,
+                Mobile = "09197701747"
             });
 
         }
