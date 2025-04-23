@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MBIN.Entity.User;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.Win32;
 
 namespace MBIN.API.Controllers
 {
@@ -28,14 +29,14 @@ namespace MBIN.API.Controllers
         [Route("DeleteUser/{id}")]
         public IActionResult DeleteUser(int id)
         {
-             if (_repository.DeleteAsync(id).Result)
-             {
+            if (_repository.DeleteAsync(id).Result)
+            {
                 return Ok();
             }
-             else
-             {
-                 return NotFound();
-             }
+            else
+            {
+                return NotFound();
+            }
         }
 
         [HttpPatch(nameof(id))]
@@ -96,9 +97,25 @@ namespace MBIN.API.Controllers
             }
 
         }
-        //public IActionResult LoginUser(LoginUserDTO login)
-        //{
+        public IActionResult LoginUser(LoginUserDTO login)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
-        //}
+            if (!_repository.ExistByAsync(u => u.Email == login.Email && u.Password == login.Password).Result)
+            {
+                ModelState.AddModelError("", "کاربری یافت نشد");
+                return NotFound(ModelState);
+            }
+
+            var user = _repository.Login(login.Email, login.Password);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            return Ok(user);
+        }
     }
 }

@@ -11,6 +11,6 @@ namespace MBIN.Data.Contracts
     public interface IUserRepository : IGenericRepository<User, int>
     {
         Task<bool> EmailExist(string email);
-        User Login (LoginUserDTO loginUserDto);
+        User Login (string email,string password);
     }
 }
