@@ -5,6 +5,7 @@ using MBIN.Entity.User;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MBIN.Entity.User;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace MBIN.API.Controllers
 {
@@ -23,39 +24,18 @@ namespace MBIN.API.Controllers
             return Ok(_repository.GetAllAsync().Result);
         }
 
-        [HttpPost]
-        [Route("AddUser")]
-        public IActionResult InsertUser([FromBody] CreateUserDTO user)
-        {
-            User User = new()
-            {
-                UserName = user.UserName,
-                Email = user.Email,
-                Gender = user.Gender,
-                Password = user.Password,
-                CreateDate = DateTime.Now,
-                LastUpdateDate = DateTime.Now
-            };
-            var Query = _repository.InsertAsync(User).Result;
-
-            if (Query)
-            {
-                return Created();
-            }
-            else
-            {
-                return BadRequest();
-            }
-
-        }
         [HttpDelete(nameof(id))]
         [Route("DeleteUser/{id}")]
         public IActionResult DeleteUser(int id)
         {
-            var Result = _repository.DeleteAsync(id);
-
-            return Ok();
-
+             if (_repository.DeleteAsync(id).Result)
+             {
+                return Ok();
+            }
+             else
+             {
+                 return NotFound();
+             }
         }
 
         [HttpPatch(nameof(id))]
@@ -79,5 +59,46 @@ namespace MBIN.API.Controllers
                 return Ok();
             }
         }
+        [HttpPost(nameof(register))]
+        [Route("RegisterUser")]
+        public IActionResult RegisterUser(CreateUserDTO register)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if (_repository.EmailExist(register.Email.Trim()).Result)
+            {
+                ModelState.AddModelError("Email", "ایمیل وارد شده از قبل موجود است");
+                return BadRequest(ModelState);
+            }
+
+            User regUser = new User()
+            {
+                CreateDate = DateTime.Now,
+                Email = register.Email.Trim(),
+                Password = register.Password,
+                Gender = register.Gender,
+                UserName = register.UserName,
+                Mobile = register.Mobile,
+                //JWTSecret = "Test",
+                LastUpdateDate = DateTime.Now
+            };
+            if (_repository.InsertAsync(regUser).Result)
+            {
+                return Ok();
+            }
+            else
+            {
+                ModelState.AddModelError("", "خطای سیستمی رخ داده لطفا مجددا سعی کنید");
+                return StatusCode(500, ModelState);
+            }
+
+        }
+        //public IActionResult LoginUser(LoginUserDTO login)
+        //{
+
+        //}
     }
 }

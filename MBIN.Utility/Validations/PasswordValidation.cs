@@ -17,7 +17,7 @@ namespace MBIN.Utility.Validations
                 return false;
             }
 
-            return base.IsValid(value);
+            return true;
         }
     }
 }

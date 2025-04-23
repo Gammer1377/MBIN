@@ -43,4 +43,12 @@ namespace MBIN.Entity.DTOs
         [Compare("NewPassword", ErrorMessage = "رمز عبور جدید با تکرار آن یکسان نیست")]
         public string RePassword { get; set; }
     }
+
+    public class LoginUserDTO()
+    {
+        [EmailAddress(ErrorMessage = "لطفا ایمیل معتبر وارد کنید")]
+        public string Email { get; set; }
+        [PasswordValidation(ErrorMessage = "رمز عبور نمیتواند خالی باشد")]
+        public string Password { get; set; }
+    }
 }
