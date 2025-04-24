@@ -5,6 +5,7 @@ using MBIN.Entity.User;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MBIN.Entity.User;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Win32;
 
@@ -18,6 +19,7 @@ namespace MBIN.API.Controllers
 
         public UserController(IUserRepository repository) => _repository = repository;
 
+        [Authorize]
         [HttpGet]
         [Route("GetUsers")]
         public IActionResult GetUsers()
@@ -97,6 +99,8 @@ namespace MBIN.API.Controllers
             }
 
         }
+        [HttpPost(nameof(login))]
+        [Route("LoginUser")]
         public IActionResult LoginUser(LoginUserDTO login)
         {
             if (!ModelState.IsValid)

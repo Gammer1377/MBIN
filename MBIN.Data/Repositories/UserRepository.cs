@@ -40,7 +40,7 @@ namespace MBIN.Data.Repositories
             }
             else
             {
-                var key = Encoding.ASCII.GetBytes("Jwt Token");
+                var key = Encoding.ASCII.GetBytes("This is my Sha256 jwt secret key");
 
                 var tokenHandler = new JwtSecurityTokenHandler();
 

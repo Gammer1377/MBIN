@@ -13,7 +13,7 @@ builder.Services.AddOpenApi();
 
 #region JWT
 
-var key = Encoding.ASCII.GetBytes("Jwt Token");
+var key = Encoding.ASCII.GetBytes("This is my Sha256 jwt secret key");
 
 builder.Services.AddAuthentication(x =>
 {
