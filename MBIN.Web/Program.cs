@@ -1,8 +1,11 @@
+using MBIN.Web.Services.User;
+
 var builder = WebApplication.CreateBuilder(args);
 
 
 builder.Services.AddControllersWithViews();
-
+builder.Services.AddHttpClient();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 var app = builder.Build();
 
 if (!app.Environment.IsDevelopment())
