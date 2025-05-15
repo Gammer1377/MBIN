@@ -19,7 +19,6 @@ namespace MBIN.API.Controllers
 
         public UserController(IUserRepository repository) => _repository = repository;
 
-        [Authorize]
         [HttpGet]
         [Route("GetUsers")]
         public IActionResult GetUsers()

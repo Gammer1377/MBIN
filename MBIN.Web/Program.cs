@@ -1,11 +1,21 @@
+using MBIN.Utility;
 using MBIN.Web.Services.User;
 
 var builder = WebApplication.CreateBuilder(args);
 
 
 builder.Services.AddControllersWithViews();
+
+#region ApiUrls
+
+var ApiUrlsSection = builder.Configuration.GetSection("ApiUrls");
+builder.Services.Configure<ApiUrls>(ApiUrlsSection);
+
+#endregion
+
 builder.Services.AddHttpClient();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+
 var app = builder.Build();
 
 if (!app.Environment.IsDevelopment())

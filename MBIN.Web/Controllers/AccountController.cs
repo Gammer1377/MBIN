@@ -19,9 +19,17 @@ namespace MBIN.Web.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Register(RegisterViewModel register)
+        [Route("Register")]
+        public async Task<IActionResult> Register(RegisterViewModel model)
         {
-            return Ok();
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var Result = await _userRepository.Register(model);
+
+            return View("SuccessRegister", model);
         }
     }
 }

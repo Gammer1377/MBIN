@@ -7,26 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="wwwroot\img\**" />
-    <Compile Remove="wwwroot\lib\**" />
-    <Compile Remove="wwwroot\userPanel\**" />
-    <Compile Remove="wwwroot\vendor\**" />
-    <Content Remove="wwwroot\img\**" />
-    <Content Remove="wwwroot\lib\**" />
-    <Content Remove="wwwroot\userPanel\**" />
-    <Content Remove="wwwroot\vendor\**" />
-    <EmbeddedResource Remove="wwwroot\img\**" />
-    <EmbeddedResource Remove="wwwroot\lib\**" />
-    <EmbeddedResource Remove="wwwroot\userPanel\**" />
-    <EmbeddedResource Remove="wwwroot\vendor\**" />
-    <None Remove="wwwroot\img\**" />
-    <None Remove="wwwroot\lib\**" />
-    <None Remove="wwwroot\userPanel\**" />
-    <None Remove="wwwroot\vendor\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="9.0.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 
   <ItemGroup>
