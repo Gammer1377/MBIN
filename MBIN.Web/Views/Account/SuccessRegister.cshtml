@@ -1,17 +1,11 @@
-﻿@model MBIN.Web.Models.User.RegisterViewModel
+﻿@using MBIN.Web.Models.User
+@model MBIN.Web.Models.User.RegisterViewModel
 @{
     ViewData["Title"] = "پایان ثبت نام";
 }
 
-<nav aria-label="breadcrumb">
-    <ul class="breadcrumb">
-        <li class="breadcrumb-item"><a href="/">MBIN</a></li>
-        <li class="breadcrumb-item active" aria-current="page">پایان ثبت نام</li>
-    </ul>
-</nav>
-
-<div class="alert alert-success">
-    <h1>@Model.UserName عزیز !</h1>
-    <p>ثبت نام شما انجام شد ، ایمیلی حاوی لینک فعالسازی به ایمیمل "@Model.Email" ارسال شد .</p>
-    <p>جهت ادامه ثبت نام وارد ایمیل خود شوید و روی لینک کلیک کنید .</p>
+<div class="alert alert-success" role="alert" dir="rtl">
+    <p>@Model.UserName عزیز !</p>
+    <p>ثبت نام شما با موفقیت انجام شد</p>
+    <p>لینک فعال سازی حساب کاربری شما به ایمیل @Model.Email ارسال گردید</p>
 </div>

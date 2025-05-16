@@ -4,6 +4,7 @@ namespace MBIN.Web.Services.User
 {
     public interface IUserRepository
     {
-        Task<bool> Register(RegisterViewModel registerModel);
+        Task<bool> Register(RegisterViewModel model);
+        Task<UserModel> Login(LoginViewModel model);
     }
 }

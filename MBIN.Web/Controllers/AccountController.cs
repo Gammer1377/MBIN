@@ -31,5 +31,24 @@ namespace MBIN.Web.Controllers
 
             return View("SuccessRegister", model);
         }
+        [Route("Login")]
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [Route("Login")]
+        public async Task<IActionResult> Login(LoginViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            var res= await _userRepository.Login(model);
+            ViewBag.res=res.JWTSecret;
+            return View();
+
+        }
     }
 }
