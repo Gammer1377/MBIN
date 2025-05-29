@@ -1,4 +1,5 @@
-﻿<header class="header header-intro-clearance header-4">
+﻿
+<header class="header header-intro-clearance header-4">
     <div class="header-top">
         <div class="container">
             <div class="header-left">
@@ -34,16 +35,27 @@
                                     </div><!-- End .header-menu -->
                                 </div><!-- End .header-dropdown -->
                             </li>
-                            <div class="col-sm-6 col-xs-12">
-                                <div class="clientarea">
-                                    <div class="signin">
-                                        <i class="zmdi zmdi-account"></i>
-                                        <a href="Register"> عضویت </a>
-                                        <a></a>
-                                        <a href="Login"> ورود </a>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <div class="signin">
+                                    <i class="zmdi zmdi-account"></i> <a href="Information">@User.Identity.Name خوش آمدی</a>
+                                    <a href="Logout">خروج</a>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="col-sm-6 col-xs-12">
+                                    <div class="clientarea">
+                                        <div class="signin">
+                                            <i class="zmdi zmdi-account"></i>
+                                            <a href="Register"> عضویت </a>
+                                            <a></a>
+                                            <a href="Login"> ورود </a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            }
+                         
                         </ul>
                     </li>
                 </ul><!-- End .top-menu -->

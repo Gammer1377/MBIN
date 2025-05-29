@@ -1,5 +1,8 @@
-﻿using MBIN.Web.Models.User;
+﻿using System.Security.Claims;
+using MBIN.Web.Models.User;
 using MBIN.Web.Services.User;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
 
@@ -45,10 +48,30 @@ namespace MBIN.Web.Controllers
             {
                 return View(model);
             }
-            var res= await _userRepository.Login(model);
-            ViewBag.res=res.JWTSecret;
-            return View();
+            var res = await _userRepository.Login(model);
+            HttpContext.Session.SetString("JWTSecret", res.JWTSecret);
+            var Claims = new List<Claim>()
+            {
+                new Claim(ClaimTypes.Name,res.UserName),
+                new Claim(ClaimTypes.Email,res.Email),
+                new Claim(ClaimTypes.NameIdentifier,res.Id.ToString()),
+                new Claim(ClaimTypes.Gender,res.Gender.ToString())
+            };
+            var Identity = new ClaimsIdentity(Claims, CookieAuthenticationDefaults.AuthenticationScheme);
+            var Principal = new ClaimsPrincipal(Identity);
+            var Properties = new AuthenticationProperties();
+            HttpContext.SignInAsync(Principal, Properties);
 
+            return Redirect("/");
+
+        }
+
+        [Route("Logout")]
+        public async Task<IActionResult> Logout()
+        {
+            HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+
+            return Redirect("Login");
         }
     }
 }

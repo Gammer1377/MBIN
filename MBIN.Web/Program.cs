@@ -1,5 +1,6 @@
 using MBIN.Utility;
 using MBIN.Web.Services.User;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +15,30 @@ builder.Services.Configure<ApiUrls>(ApiUrlsSection);
 #endregion
 
 builder.Services.AddHttpClient();
+
+#region Session
+
+builder.Services.AddSession(x =>
+{
+    x.IOTimeout = TimeSpan.FromDays(10);
+    x.Cookie.HttpOnly = true;
+    x.Cookie.IsEssential = true;
+});
+
+#endregion
+
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+    options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+}).AddCookie(options =>
+{
+    options.LoginPath = "/Login";
+    options.LogoutPath = "/Logout";
+    options.ExpireTimeSpan = TimeSpan.FromDays(10);
+});
+
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 var app = builder.Build();
@@ -32,6 +57,8 @@ app.UseRouting();
 app.UseAuthentication();
 
 app.UseAuthorization();
+
+app.UseSession();
 
 app.MapStaticAssets();
 
