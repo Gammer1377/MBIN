@@ -1,3 +1,5 @@
+using System.Text.Encodings.Web;
+using System.Text.Unicode;
 using MBIN.Utility;
 using MBIN.Web.Services.User;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -39,7 +41,15 @@ builder.Services.AddAuthentication(options =>
     options.ExpireTimeSpan = TimeSpan.FromDays(10);
 });
 
+#region Dependencies
+
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+
+builder.Services.AddSingleton<HtmlEncoder>(HtmlEncoder.Create(allowedRanges: new[] { UnicodeRanges.BasicLatin, UnicodeRanges.Arabic }));
+
+#endregion
+
+
 
 var app = builder.Build();
 

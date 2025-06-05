@@ -2,8 +2,8 @@
     window.createNotification({
         closeOnClick: true,
         displayCloseButton: false,
-        positionClass: 'nfc-bottom-left',
-        showDuration: 4000,
+        positionClass: "ncf-bottom-center",
+        showDuration: 6000,
         theme: theme !== '' ? theme : 'success'
     })({
         title: title !== '' ? title : 'اعلان',

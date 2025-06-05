@@ -15,4 +15,9 @@
     <ProjectReference Include="..\MBIN.Utility\MBIN.Utility.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\Product\" />
+    <Folder Include="Services\Product\" />
+  </ItemGroup>
+
 </Project>

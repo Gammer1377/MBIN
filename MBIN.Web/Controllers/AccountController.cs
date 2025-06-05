@@ -31,8 +31,8 @@ namespace MBIN.Web.Controllers
             }
 
             var Result = await _userRepository.Register(model);
-
-            return View("SuccessRegister", model);
+            TempData["WarningMessage"] = $"ثبت نام شما با موفقیت ثبت شد لطفا برای فعال سازی حساب کاربری خود به آدرس ایمیل{model.Email} مراجعه و حساب خود را فعال نمایید.";
+            return Redirect("/");
         }
         [Route("Login")]
         public IActionResult Login()
@@ -61,8 +61,9 @@ namespace MBIN.Web.Controllers
             var Principal = new ClaimsPrincipal(Identity);
             var Properties = new AuthenticationProperties();
             HttpContext.SignInAsync(Principal, Properties);
-
+            TempData["SuccessMessage"] = "ورود با موفقیت انجام شد";
             return Redirect("/");
+
 
         }
 

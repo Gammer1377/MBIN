@@ -7,9 +7,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
-builder.Services.ConfigurePersistenceService(builder.Configuration);
-
 builder.Services.AddOpenApi();
+
+builder.Services.ConfigurePersistenceService(builder.Configuration);
 
 #region JWT
 
